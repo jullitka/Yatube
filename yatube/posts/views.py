@@ -28,13 +28,8 @@ def group_posts(request, slug):
 
 
 def profile(request, username):
-    following = False
     author = get_object_or_404(User, username=username)
-    if request.user.is_authenticated and Follow.objects.filter(
-        author=author,
-        user=request.user
-    ).exists():
-        following = True
+    following = Follow.objects.filter(author=author)
     posts = Post.objects.select_related(
         'author',
         'group'
@@ -113,11 +108,9 @@ def add_comment(request, post_id):
 
 @login_required
 def follow_index(request):
-    user = request.user
-    authors = Follow.objects.filter(user_id=user.id).values_list('author')
     post_list = Post.objects.select_related(
         'author'
-    ).filter(author_id__in=authors)
+    ).filter(author__following__user=request.user)
     return render(
         request,
         'posts/follow.html',
@@ -127,19 +120,15 @@ def follow_index(request):
 
 @login_required
 def profile_follow(request, username):
-    author = User.objects.get(username=username)
-    user = User.objects.get(username=request.user)
-    if author != user and not Follow.objects.filter(
-        author=author, user=request.user
-    ).exists():
-        Follow.objects.create(author=author, user=user)
+    author = get_object_or_404(User, username=username)
+    if author != request.user:
+        Follow.objects.get_or_create(author=author, user=request.user)
     return redirect('posts:profile', author.username)
 
 
 @login_required
 def profile_unfollow(request, username):
-    author = User.objects.get(username=username)
+    author = get_object_or_404(User, username=username)
     following = Follow.objects.filter(author=author, user=request.user)
-    if following.exists():
-        following.delete()
+    following.delete()
     return redirect('posts:profile', author.username)
