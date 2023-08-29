@@ -1,6 +1,17 @@
-# hw05_final
+# Yatube
+Проект социальной сети Yatube.
 
-### Запуск проекта:
+Позволяет регестрироваться на сайте и делать публикации с фото. Публикации можно размещать в тематических группах.
+
+Также можно просматривать и комментировать публикации других пользователей и подписываться на понравившихся авторов.
+
+
+## Стек технологий
+[![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/-Django-464646?style=flat-square&logo=Django)](https://www.djangoproject.com/)
+[![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?style=flat-square&logo=Django%20REST%20Framework)](https://www.django-rest-framework.org/)
+
+## Запуск проекта:
 
 Клонировать репозиторий и перейти в него в командной строке:
 
