@@ -25,7 +25,7 @@ pip install -r requirements.txt
 ```
 Перейти в необходимую директорию и выполнить миграции:
 ```
-cd yatube_api
+cd yatube
 
 python manage.py migrate
 ```
